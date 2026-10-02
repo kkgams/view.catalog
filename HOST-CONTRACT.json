@@ -1,0 +1,37 @@
+{
+  "dynamicImports": [],
+  "failurePolicy": "Missing imports, schemas, required config and providers must fail loudly; no optional defaults introduced.",
+  "guiValidationPending": "Catalog SQL data, sprite import, tileset/nine-patch popup edit flows",
+  "legacyLimits": [],
+  "requirements": [
+    "Browser DOM and custom elements",
+    "Project Config View ids, source and view-specific configuration",
+    "Configured runtime plugin/service providers",
+    "Host base/theme semantic CSS"
+  ],
+  "staticImports": {
+    "view.catalog": [
+      "/core/runtime.js",
+      "/util/qoi/decode.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ],
+    "view.catalog-nine-patch-edit": [
+      "/core/runtime.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ],
+    "view.catalog-sprite-import": [
+      "/core/runtime.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ],
+    "view.catalog-tileset-edit": [
+      "/core/runtime.js",
+      "/util/qoi/decode.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ]
+  },
+  "supportedHost": "2.0.3"
+}

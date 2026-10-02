@@ -1,0 +1,34 @@
+{
+  "hostImports": {
+    "view.catalog": [
+      "/core/runtime.js",
+      "/util/qoi/decode.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ],
+    "view.catalog-nine-patch-edit": [
+      "/core/runtime.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ],
+    "view.catalog-sprite-import": [
+      "/core/runtime.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ],
+    "view.catalog-tileset-edit": [
+      "/core/runtime.js",
+      "/util/qoi/decode.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ]
+  },
+  "limits": "Parent must add source-bound LICENSE/NOTICE evidence before distribution.",
+  "transformation": "Blend entries remove only the other registration block; original source retained under upstream/.",
+  "upstream_sha256": {
+    "views/view-catalog-nine-patch-edit.js": "e638ca431cb4f61d92ea8be3bb21c2a430627ff7c2db4b729f110f5391b9c83f",
+    "views/view-catalog-sprite-import.js": "b96d516acdebae995f273577f4572ea361c6551239e43bc61a9bdbd31d5f105b",
+    "views/view-catalog-tileset-edit.js": "38002e59ff94970fe1eba0edf944e8d634385d965e353fe55b64726f8912c033",
+    "views/view-catalog.js": "4e22780f59b5c9f51d1646bc775d0e948d8d7b8379acdc45c4545b396c9bfee2"
+  }
+}

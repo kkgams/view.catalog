@@ -1,0 +1,77 @@
+{
+  "hostImports": {
+    "view.catalog": [
+      "/core/runtime.js",
+      "/util/qoi/decode.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ],
+    "view.catalog-nine-patch-edit": [
+      "/core/runtime.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ],
+    "view.catalog-sprite-import": [
+      "/core/runtime.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ],
+    "view.catalog-tileset-edit": [
+      "/core/runtime.js",
+      "/util/qoi/decode.js",
+      "/util/sql.js",
+      "/util/view-plugin.js"
+    ]
+  },
+  "packages": [
+    {
+      "entry": "views/view-catalog.js",
+      "files": {
+        "src/view.catalog/views/view-catalog.js": "views/view-catalog.js"
+      },
+      "kind": "view",
+      "name": "view.catalog",
+      "sha256": {
+        "src/view.catalog/views/view-catalog.js": "4e22780f59b5c9f51d1646bc775d0e948d8d7b8379acdc45c4545b396c9bfee2"
+      },
+      "tag": "view-catalog"
+    },
+    {
+      "entry": "views/view-catalog-tileset-edit.js",
+      "files": {
+        "src/view.catalog-tileset-edit/views/view-catalog-tileset-edit.js": "views/view-catalog-tileset-edit.js"
+      },
+      "kind": "view",
+      "name": "view.catalog-tileset-edit",
+      "sha256": {
+        "src/view.catalog-tileset-edit/views/view-catalog-tileset-edit.js": "38002e59ff94970fe1eba0edf944e8d634385d965e353fe55b64726f8912c033"
+      },
+      "tag": "view-catalog-tileset-edit"
+    },
+    {
+      "entry": "views/view-catalog-sprite-import.js",
+      "files": {
+        "src/view.catalog-sprite-import/views/view-catalog-sprite-import.js": "views/view-catalog-sprite-import.js"
+      },
+      "kind": "view",
+      "name": "view.catalog-sprite-import",
+      "sha256": {
+        "src/view.catalog-sprite-import/views/view-catalog-sprite-import.js": "b96d516acdebae995f273577f4572ea361c6551239e43bc61a9bdbd31d5f105b"
+      },
+      "tag": "view-catalog-sprite-import"
+    },
+    {
+      "entry": "views/view-catalog-nine-patch-edit.js",
+      "files": {
+        "src/view.catalog-nine-patch-edit/views/view-catalog-nine-patch-edit.js": "views/view-catalog-nine-patch-edit.js"
+      },
+      "kind": "view",
+      "name": "view.catalog-nine-patch-edit",
+      "sha256": {
+        "src/view.catalog-nine-patch-edit/views/view-catalog-nine-patch-edit.js": "e638ca431cb4f61d92ea8be3bb21c2a430627ff7c2db4b729f110f5391b9c83f"
+      },
+      "tag": "view-catalog-nine-patch-edit"
+    }
+  ],
+  "repository": "view.catalog"
+}
