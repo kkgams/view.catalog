@@ -30,6 +30,10 @@ repository releases its complete canonical package set at one strict SemVer tag.
    deployment hashes, retained metadata and Host target 2.0.3.
 5. Owner creates version tag at current release HEAD. Tag CI repeats tests, digest,
    canonical repository, version, branch/tag/workflow SHA and artifact checks.
+   Both jobs check out the event commit explicitly with full history: pinned checkout
+   v5 tag-mode can locally replace an annotated tag with its peeled commit. Explicit
+   commit checkout preserves remote tag objects; strict annotation/remote identity
+   checks remain required (never ref repair or acceptance of lightweight tags).
    Existing releases (including drafts) and API failures block publication. Public
    creation first requires public visibility and the read-only immutable-releases
    policy endpoint to confirm enabled=true. RELEASE_POLICY_TOKEN must be a
@@ -50,9 +54,9 @@ repository releases its complete canonical package set at one strict SemVer tag.
 Local rehearsal (after evidence and approvals):
 
 ```
-python3 scripts/release.py stage --tag v0.1.1
-python3 scripts/release.py check --tag v0.1.1
-python3 scripts/release.py install --tag v0.1.1 --archives dist/candidate/view.NAME-0.1.1.zip --checksums dist/candidate/SHA256SUMS --destination /path/to/project
+python3 scripts/release.py stage --tag v0.1.2
+python3 scripts/release.py check --tag v0.1.2
+python3 scripts/release.py install --tag v0.1.2 --archives dist/candidate/view.NAME-0.1.2.zip --checksums dist/candidate/SHA256SUMS --destination /path/to/project
 ```
 
 Installation checks selected archive checksums, ZIP members, manifests, hashes and

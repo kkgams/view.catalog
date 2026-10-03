@@ -1,5 +1,5 @@
 {
-  "audit_generator_sha256": "adb97da64023ffb64f002b8e97931348f63c7bf9f1ba03fb1eb2277f58b9c819",
+  "audit_generator_sha256": "a891285eb77ecf49d69804b871b9a6bfbf9c7bac15799aa0c66e91f696622713",
   "audit_input_sha256": {
     "collection.json": "1bc7c436ad588338021663ead7c98f0a7f92d88e2cc46db7b18cec2a926d6087",
     "sources.json": "5af4dd4635af7438e40f92fbc13fe58c4cf297b3e8e017a7b2ab1b73e092dce8",
@@ -14,37 +14,25 @@
     "maintenance": {
       "changed_inputs": {
         ".github/workflows/release.yml": {
-          "after": "2061a18fd3c786aee2bf35312d118a7468e62c3d512b217b05d6a399f6d89673",
-          "before": "9d4c91a6615d1c045fb2398864aa72b633d6630c6f6e8aff0406faccac076107"
+          "after": "e15b7a3461efb3933011932b8b56247a96be93bb77f8a685a2c0fc974b21c0a0",
+          "before": "2061a18fd3c786aee2bf35312d118a7468e62c3d512b217b05d6a399f6d89673"
         },
         "PUBLISHING.md": {
-          "after": "1981656a3fc4c78c2c81bfb19202da9bfeb28f227b5a30f1b53c015ec09171e2",
-          "before": "74c3775aed7c97b1e898eff6d4c97fee78d6a137de40f81f8699b049668699a3"
+          "after": "a34bfffc03b4784295e1a831704531c3fc3366da6bf82dfeb60391ed475a76f2",
+          "before": "1981656a3fc4c78c2c81bfb19202da9bfeb28f227b5a30f1b53c015ec09171e2"
         },
         "package.json": {
-          "after": "9c471b7565110c4419a93c0b7444dface6501b06ff2c687c3caa6e5520d64160",
-          "before": "aad0c17b2de0215814af2104a16a64a66c37029d9bab6d7e0fe41b0f47c6c9b0"
+          "after": "b278477e87402b7e8a3b2cb5fc0d0627f530fcbda8c39f9fdfd4a0fb9f9aae41",
+          "before": "9c471b7565110c4419a93c0b7444dface6501b06ff2c687c3caa6e5520d64160"
         },
-        "scripts/publication.py": {
-          "after": "65544fbaf9eae8a47b56a42c163789498382d00d3ffc080764fbe2b887754d73",
+        "test/test_checkout.py": {
+          "after": "0d5ee141ea3de6f9a8a6cf1faef47a0682845bf32fcf0330f6e157655b7bfa21",
           "before": null
-        },
-        "test/legal_fixture.py": {
-          "after": "9c136bec16a7e2f759f561c20b88406b79fc7ae55146c849aad11d1f8f90b4a8",
-          "before": "37c2dd10682000390f37d0cd3f08e2e86c6c812efcc0b9a516c5369c6ad50cec"
-        },
-        "test/test_publication.py": {
-          "after": "95f489f399a7ecfaa6f452c07fa7c65df1e7575b1c8303e37dfeb88e168c215e",
-          "before": null
-        },
-        "test/test_release.py": {
-          "after": "e2146096d9d50167e693680eacc13774783e7212f4c889648cc624b867fa737a",
-          "before": "c49cc8109f4154310b4fc476f0c4b3de33c72cbc9ac31ee7ea4e8e79902d90d2"
         }
       },
-      "previous_commit": "fedc802f6ae9a557719b098bee6286ac129803dd",
-      "previous_evidence_sha256": "ccb9c8b9231b1295c7f6b9fc0383da9749856f321dab5680cc5c706b66265071",
-      "review": "First-party stdlib publisher/workflow/tests/version/docs only; separate policy credential, draft API identities and bounded no-cache read polling. No third-party/View/Host/runtime bytes changed."
+      "previous_commit": "5637f828eaf0edbe64f22e83481b8b129e1cc206",
+      "previous_evidence_sha256": "e6d089935402eccff2cef04d7a8a1fd38dd6219a1f3bf8197d299e867f91e920",
+      "review": "First-party checkout configuration/real-Git regression/version/docs only. CI event-commit checkout preserves annotation; strict gates unchanged. No third-party/View/Host/runtime bytes changed."
     },
     "markov_comparison_remote": "justgook/MarkovJunior",
     "markov_comparison_revision": "c44cae86d03cdcd13154a96170ca7a722aabb8d6",
@@ -111,17 +99,17 @@
   },
   "files_sha256": {
     ".gitattributes": "02a00a5e791aceec9288ce23f6ccdd26fb5356bc6da5f926c1866c1b906d1d8e",
-    ".github/workflows/release.yml": "2061a18fd3c786aee2bf35312d118a7468e62c3d512b217b05d6a399f6d89673",
+    ".github/workflows/release.yml": "e15b7a3461efb3933011932b8b56247a96be93bb77f8a685a2c0fc974b21c0a0",
     ".gitignore": "e1194303c37a19ec3d29c4d2d8bd83ddfbd1bf387ce33d929097d526f71c6e31",
     "HOST-CONTRACT.json": "db1131e980e767bfc52250fa773ee5e5a027bba3093ff6181b62bb5a171bec1d",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "LICENSING.md": "9c90a7d909f589c226e600b2cd66f551d7769ba9de2b67fc2ee5e9d751de256e",
-    "PUBLISHING.md": "1981656a3fc4c78c2c81bfb19202da9bfeb28f227b5a30f1b53c015ec09171e2",
+    "PUBLISHING.md": "a34bfffc03b4784295e1a831704531c3fc3366da6bf82dfeb60391ed475a76f2",
     "README.md": "ca5ffb017827cbe9b3cd46b2b011604c845d98e0414e5dde5dada0d0492d9239",
     "SOURCE-CLOSURE.json": "369ca7288c2dcb232b0c2eab31862b4451d3589adc77f29ffbfaf36ce9833c16",
     "THIRD-PARTY-REVIEW.md": "1c3bd5b83cc7cbe05bb79468150bacdd18eb157bb9a9e74b4b18200232f77f4f",
     "canonical.json": "9bc13abdb443a9652a160947567d548becacaee8f20959b17412dab9b14edd88",
-    "package.json": "9c471b7565110c4419a93c0b7444dface6501b06ff2c687c3caa6e5520d64160",
+    "package.json": "b278477e87402b7e8a3b2cb5fc0d0627f530fcbda8c39f9fdfd4a0fb9f9aae41",
     "release.json": "9dab7874b901c563adb03ef66944687c175d390e15886a417afb2010a633187f",
     "scripts/publication.py": "65544fbaf9eae8a47b56a42c163789498382d00d3ffc080764fbe2b887754d73",
     "scripts/release.py": "4cb8c0ad2e49410d2e7ab8380f002bc2d83c01428444f5cb6d38535a5e7cb624",
@@ -132,6 +120,7 @@
     "src/view.catalog-tileset-edit/views/view-catalog-tileset-edit.js": "38002e59ff94970fe1eba0edf944e8d634385d965e353fe55b64726f8912c033",
     "src/view.catalog/views/view-catalog.js": "4e22780f59b5c9f51d1646bc775d0e948d8d7b8379acdc45c4545b396c9bfee2",
     "test/legal_fixture.py": "9c136bec16a7e2f759f561c20b88406b79fc7ae55146c849aad11d1f8f90b4a8",
+    "test/test_checkout.py": "0d5ee141ea3de6f9a8a6cf1faef47a0682845bf32fcf0330f6e157655b7bfa21",
     "test/test_publication.py": "95f489f399a7ecfaa6f452c07fa7c65df1e7575b1c8303e37dfeb88e168c215e",
     "test/test_release.py": "e2146096d9d50167e693680eacc13774783e7212f4c889648cc624b867fa737a",
     "upstream/views/view-catalog-nine-patch-edit.js": "e638ca431cb4f61d92ea8be3bb21c2a430627ff7c2db4b729f110f5391b9c83f",
@@ -207,7 +196,7 @@
   },
   "repository": "view.catalog",
   "schema": 1,
-  "scope": "v0.1.1 publisher maintenance; exact unchanged View/upstream/legal terms; no build certification",
+  "scope": "v0.1.2 publisher maintenance; exact unchanged View/upstream/legal terms; no build certification",
   "shipped_host_source_files": [],
   "source_comparison_exclusions": {
     "directories": [
