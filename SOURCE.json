@@ -1,16 +1,16 @@
 {
   "legal": {
-    "evidence_sha256": "94d8c706a06d9fb6877131958eb35097d1c51919c1dd608ebae5fd67ecfcc8fd",
+    "evidence_sha256": "3348d6e076c0829ae07a2ad6735148c9410255181f32ca4cccf499c4287a5bd9",
     "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-    "notice_sha256": "9bca9f6b308315571501b20813c18d41e9cf618dcf298709b711c699f72b1f55",
+    "notice_sha256": "9fe984ae2499d9e79fb8bd1d2ad126cb93ae2cfecad8c46012ef07781769f1be",
     "permission_blockers": [],
     "status": "bounded source review; owner digest/artifact approval pending"
   },
   "maintenance": {
-    "audit_recipe_sha256": "a891285eb77ecf49d69804b871b9a6bfbf9c7bac15799aa0c66e91f696622713",
-    "previous_commit": "5637f828eaf0edbe64f22e83481b8b129e1cc206",
+    "audit_recipe_sha256": "999e96b0f7f73ee59a297f62777b58c5147c567ec85e578c9dc417cec1e22641",
+    "previous_commit": "b450cc981df92cc11e40d3de90e3993e28607f63",
     "source_payloads": "all src/upstream/full license-term hashes unchanged",
-    "version": "0.1.2"
+    "version": "0.2.0"
   },
   "monorepo_revision": "a2f939f22b8814950ff066abf245ab5d9da40e42",
   "preparation": "Source prepared and reviewed; no hosted Linux or graphical validation claimed.",

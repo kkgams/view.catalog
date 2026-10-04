@@ -1,5 +1,5 @@
 {
-  "audit_generator_sha256": "a891285eb77ecf49d69804b871b9a6bfbf9c7bac15799aa0c66e91f696622713",
+  "audit_generator_sha256": "999e96b0f7f73ee59a297f62777b58c5147c567ec85e578c9dc417cec1e22641",
   "audit_input_sha256": {
     "collection.json": "1bc7c436ad588338021663ead7c98f0a7f92d88e2cc46db7b18cec2a926d6087",
     "sources.json": "5af4dd4635af7438e40f92fbc13fe58c4cf297b3e8e017a7b2ab1b73e092dce8",
@@ -13,26 +13,18 @@
     "local_wasi_sdk_version": "33.0+m\nwasi-libc: 161b3195fc25\nllvm: 4434dabb6991\nllvm-version: 22.1.0\nconfig: f992bcc08219\n",
     "maintenance": {
       "changed_inputs": {
-        ".github/workflows/release.yml": {
-          "after": "e15b7a3461efb3933011932b8b56247a96be93bb77f8a685a2c0fc974b21c0a0",
-          "before": "2061a18fd3c786aee2bf35312d118a7468e62c3d512b217b05d6a399f6d89673"
-        },
         "PUBLISHING.md": {
-          "after": "a34bfffc03b4784295e1a831704531c3fc3366da6bf82dfeb60391ed475a76f2",
-          "before": "1981656a3fc4c78c2c81bfb19202da9bfeb28f227b5a30f1b53c015ec09171e2"
+          "after": "a12f0d81b04a32d74c02e318c6c710246e4d047f92fb2619cb1064c41f02cac5",
+          "before": "a34bfffc03b4784295e1a831704531c3fc3366da6bf82dfeb60391ed475a76f2"
         },
         "package.json": {
-          "after": "b278477e87402b7e8a3b2cb5fc0d0627f530fcbda8c39f9fdfd4a0fb9f9aae41",
-          "before": "9c471b7565110c4419a93c0b7444dface6501b06ff2c687c3caa6e5520d64160"
-        },
-        "test/test_checkout.py": {
-          "after": "0d5ee141ea3de6f9a8a6cf1faef47a0682845bf32fcf0330f6e157655b7bfa21",
-          "before": null
+          "after": "5f9c3aba11ed635e6e390520bbc8e2243eedf72d54eb425f2faa06a4ce15d1a9",
+          "before": "b278477e87402b7e8a3b2cb5fc0d0627f530fcbda8c39f9fdfd4a0fb9f9aae41"
         }
       },
-      "previous_commit": "5637f828eaf0edbe64f22e83481b8b129e1cc206",
-      "previous_evidence_sha256": "e6d089935402eccff2cef04d7a8a1fd38dd6219a1f3bf8197d299e867f91e920",
-      "review": "First-party checkout configuration/real-Git regression/version/docs only. CI event-commit checkout preserves annotation; strict gates unchanged. No third-party/View/Host/runtime bytes changed."
+      "previous_commit": "b450cc981df92cc11e40d3de90e3993e28607f63",
+      "previous_evidence_sha256": "94d8c706a06d9fb6877131958eb35097d1c51919c1dd608ebae5fd67ecfcc8fd",
+      "review": "Package version and publication example versions only. Host 2.0.3, all deployed/upstream/license terms, publisher/workflow and independent protocol-test fixtures unchanged. No future dependency URL pins."
     },
     "markov_comparison_remote": "justgook/MarkovJunior",
     "markov_comparison_revision": "c44cae86d03cdcd13154a96170ca7a722aabb8d6",
@@ -104,12 +96,12 @@
     "HOST-CONTRACT.json": "db1131e980e767bfc52250fa773ee5e5a027bba3093ff6181b62bb5a171bec1d",
     "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "LICENSING.md": "9c90a7d909f589c226e600b2cd66f551d7769ba9de2b67fc2ee5e9d751de256e",
-    "PUBLISHING.md": "a34bfffc03b4784295e1a831704531c3fc3366da6bf82dfeb60391ed475a76f2",
+    "PUBLISHING.md": "a12f0d81b04a32d74c02e318c6c710246e4d047f92fb2619cb1064c41f02cac5",
     "README.md": "ca5ffb017827cbe9b3cd46b2b011604c845d98e0414e5dde5dada0d0492d9239",
     "SOURCE-CLOSURE.json": "369ca7288c2dcb232b0c2eab31862b4451d3589adc77f29ffbfaf36ce9833c16",
     "THIRD-PARTY-REVIEW.md": "1c3bd5b83cc7cbe05bb79468150bacdd18eb157bb9a9e74b4b18200232f77f4f",
     "canonical.json": "9bc13abdb443a9652a160947567d548becacaee8f20959b17412dab9b14edd88",
-    "package.json": "b278477e87402b7e8a3b2cb5fc0d0627f530fcbda8c39f9fdfd4a0fb9f9aae41",
+    "package.json": "5f9c3aba11ed635e6e390520bbc8e2243eedf72d54eb425f2faa06a4ce15d1a9",
     "release.json": "9dab7874b901c563adb03ef66944687c175d390e15886a417afb2010a633187f",
     "scripts/publication.py": "65544fbaf9eae8a47b56a42c163789498382d00d3ffc080764fbe2b887754d73",
     "scripts/release.py": "4cb8c0ad2e49410d2e7ab8380f002bc2d83c01428444f5cb6d38535a5e7cb624",
@@ -196,7 +188,7 @@
   },
   "repository": "view.catalog",
   "schema": 1,
-  "scope": "v0.1.2 publisher maintenance; exact unchanged View/upstream/legal terms; no build certification",
+  "scope": "v0.2.0 coordinated version maintenance; unchanged View/upstream/legal/runtime/publisher bytes; no new runtime certification",
   "shipped_host_source_files": [],
   "source_comparison_exclusions": {
     "directories": [
