@@ -5,8 +5,27 @@ status: reference
 
 # view.catalog
 
-The local Project uses ignored `catalog.sqlite`; the SQL provider creates the database and the View initializes its schema. Import your own QOI or Aseprite artwork through the dialogs.
+Catalog browser for [GAMS](https://github.com/kkgams/gams). Host runtime APIs, utilities and widgets remain external dependencies.
 
-The local Project registers canonical View entries directly from `src/` and published dependencies pinned in `gams.json`. Host-owned `/core`, `/util`, `/widgets` APIs and theme styling are not bundled.
+| View | Source | Screenshot | Original work |
+| --- | --- | --- | --- |
+| `view-catalog` | [views/view-catalog.js](https://github.com/kkgams/view.catalog/blob/release/src/view.catalog/views/view-catalog.js) | Not available | GAMS contributors |
+| `view-catalog-tileset-edit` | [views/view-catalog-tileset-edit.js](https://github.com/kkgams/view.catalog/blob/release/src/view.catalog-tileset-edit/views/view-catalog-tileset-edit.js) | Not available | GAMS contributors |
+| `view-catalog-sprite-import` | [views/view-catalog-sprite-import.js](https://github.com/kkgams/view.catalog/blob/release/src/view.catalog-sprite-import/views/view-catalog-sprite-import.js) | Not available | GAMS contributors |
+| `view-catalog-nine-patch-edit` | [views/view-catalog-nine-patch-edit.js](https://github.com/kkgams/view.catalog/blob/release/src/view.catalog-nine-patch-edit/views/view-catalog-nine-patch-edit.js) | Not available | GAMS contributors |
 
-Run `make open` on macOS Apple Silicon to launch the real Host. Run `npm test` for repository checks. Preview docs with `make serve-docs DOCS_PORT=8081`, validate with `make validate-docs`, and build a portable site with `make docs`. GitHub Pages runs that build on every push to `release`. Unit tag-release policies are unchanged.
+## Development
+
+Requires Node.js 24+, Python 3, Make, curl, tar, unzip and zip. No compilation or package installation is required.
+
+| Command | Purpose |
+| --- | --- |
+| `make open` | Open local gams.json in the released macOS Apple Silicon Host. |
+| `make check` | Check View JavaScript syntax. |
+| `make package` | Build stable-name View ZIPs and SHA256SUMS under build.nosync/. |
+| `make docs` | Build pinned wiki v1.4.0 under build.nosync/site/. |
+| `make serve-docs DOCS_PORT=8081` | Preview the wiki on an independent port. |
+| `make validate-docs` | Validate wiki content and links. |
+| `make clean` | Remove build.nosync and identified downloaded Host/Unit caches; refuse tracked files or symlinks and preserve supplied tools/Units. |
+
+The local Project uses canonical View source and pinned released dependencies. The SQL provider creates ignored `catalog.sqlite`; the View initializes its schema. Import your own QOI or Aseprite artwork through the dialogs. Catalog SQL data, sprite import and tileset/nine-patch popup editing need native GUI verification. Missing required Host imports, config or schemas are errors.
