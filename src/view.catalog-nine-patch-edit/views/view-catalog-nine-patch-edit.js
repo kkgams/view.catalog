@@ -1,6 +1,6 @@
 import { runtime, unwrap } from "/core/runtime.js"
-import { registerViewPlugin, unregisterViewPlugin } from "/util/view-plugin.js"
 import { sql } from "/util/sql.js"
+import { registerViewPlugin, unregisterViewPlugin } from "/util/view-plugin.js"
 
 function assert(condition, message) {
     if (!condition) throw new Error(message)
@@ -15,13 +15,18 @@ function escapeHtml(value) {
 }
 
 function basenameWithoutExtension(path) {
-    const name = String(path || "").split("/").pop() || ""
+    const name =
+        String(path || "")
+            .split("/")
+            .pop() || ""
     const dot = name.lastIndexOf(".")
     return dot > 0 ? name.slice(0, dot) : name
 }
 
 function dirname(path) {
-    const normalized = String(path || "").trim().replace(/\/+/g, "/")
+    const normalized = String(path || "")
+        .trim()
+        .replace(/\/+/g, "/")
     if (!normalized || normalized === "/") return "/"
     const slashIndex = normalized.lastIndexOf("/")
     if (slashIndex <= 0) return "/"
@@ -51,7 +56,16 @@ function assertPositiveInteger(value, name) {
 function normalizePatch(value, name) {
     if (value === null) return null
     assert(value && typeof value === "object", `${name} must be a rect option`)
-    const patch = "is_some" in value ? (value.is_some ? value.val : null) : "isSome" in value ? (value.isSome ? value.val : null) : value
+    const patch =
+        "is_some" in value
+            ? value.is_some
+                ? value.val
+                : null
+            : "isSome" in value
+              ? value.isSome
+                  ? value.val
+                  : null
+              : value
     if (patch === null) return null
     const x = Number(patch.x)
     const y = Number(patch.y)
@@ -149,7 +163,8 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
         this.mode = String(this.popupProps.mode || "import")
         assert(this.mode === "import" || this.mode === "edit", `unknown nine-patch edit mode ${this.mode}`)
         this.ninePatchId = Number(this.popupProps.ninePatchId || 0)
-        if (this.mode === "edit") assert(Number.isInteger(this.ninePatchId) && this.ninePatchId > 0, "nine-patch edit requires ninePatchId")
+        if (this.mode === "edit")
+            assert(Number.isInteger(this.ninePatchId) && this.ninePatchId > 0, "nine-patch edit requires ninePatchId")
         this.style.display = "contents"
         this.innerHTML = '<form data-element="form" novalidate></form>'
         this.formElement = this.querySelector('[data-element="form"]')
@@ -169,7 +184,10 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
     }
 
     setStatus(text, tone = null) {
-        assert(this.statusElement instanceof HTMLOutputElement, "view-catalog-nine-patch-edit status output is not initialized")
+        assert(
+            this.statusElement instanceof HTMLOutputElement,
+            "view-catalog-nine-patch-edit status output is not initialized",
+        )
         this.statusElement.textContent = text
         this.statusElement.classList.remove("accent", "success", "warning", "danger", "info")
         if (tone) this.statusElement.classList.add(tone)
@@ -178,7 +196,10 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
     selectedSourceNinePatch() {
         assert(this.draft.sourceNinePatches.length > 0, "nine-patch source selection requires imported source patches")
         assertNonNegativeInteger(this.draft.selectedSourceIndex, "selected nine-patch source index")
-        assert(this.draft.selectedSourceIndex < this.draft.sourceNinePatches.length, "selected nine-patch source index is out of range")
+        assert(
+            this.draft.selectedSourceIndex < this.draft.sourceNinePatches.length,
+            "selected nine-patch source index is out of range",
+        )
         return this.draft.sourceNinePatches[this.draft.selectedSourceIndex]
     }
 
@@ -227,29 +248,35 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
     render() {
         assert(this.formElement instanceof HTMLFormElement, "view-catalog-nine-patch-edit form is not initialized")
         const submitLabel = this.mode === "edit" ? "Save nine patch" : "Import nine patch"
-        const sourceInfo = this.draft.sourceNinePatches.length > 0
-            ? `${this.draft.sourceNinePatches.length} nine patches from Aseprite slices`
-            : this.mode === "edit"
-              ? "Loaded from database."
-              : "Choose a QOI/PNG/etc file for manual entry, or an Aseprite file with slices."
-        const sourceSelector = this.draft.sourceNinePatches.length > 1
-            ? `
+        const sourceInfo =
+            this.draft.sourceNinePatches.length > 0
+                ? `${this.draft.sourceNinePatches.length} nine patches from Aseprite slices`
+                : this.mode === "edit"
+                  ? "Loaded from database."
+                  : "Choose a QOI/PNG/etc file for manual entry, or an Aseprite file with slices."
+        const sourceSelector =
+            this.draft.sourceNinePatches.length > 1
+                ? `
       <fieldset>
         <legend>Aseprite slice imports</legend>
         <label>Nine patch to inspect/edit
           <select name="source-nine-patch-index">
             ${this.draft.sourceNinePatches
-                .map((ninePatch, index) => `<option value="${index}" ${index === this.draft.selectedSourceIndex ? "selected" : ""}>${escapeHtml(ninePatch.sliceName)} → ${escapeHtml(ninePatch.name)}</option>`)
+                .map(
+                    (ninePatch, index) =>
+                        `<option value="${index}" ${index === this.draft.selectedSourceIndex ? "selected" : ""}>${escapeHtml(ninePatch.sliceName)} → ${escapeHtml(ninePatch.name)}</option>`,
+                )
                 .join("")}
           </select>
         </label>
         <p>Changes below apply to the selected slice. Saving imports all ${this.draft.sourceNinePatches.length} nine patches.</p>
       </fieldset>
 `
-            : ""
-        const sourceRect = this.draft.sourceNinePatches.length > 0
-            ? `<p>Source slice: ${escapeHtml(this.draft.sourceSliceName)} · rect ${Number(this.draft.sourceX)}, ${Number(this.draft.sourceY)}, ${Number(this.draft.sourceWidth)}×${Number(this.draft.sourceHeight)}</p>`
-            : ""
+                : ""
+        const sourceRect =
+            this.draft.sourceNinePatches.length > 0
+                ? `<p>Source slice: ${escapeHtml(this.draft.sourceSliceName)} · rect ${Number(this.draft.sourceX)}, ${Number(this.draft.sourceY)}, ${Number(this.draft.sourceWidth)}×${Number(this.draft.sourceHeight)}</p>`
+                : ""
         this.formElement.innerHTML = `
       <fieldset>
         <legend>Source</legend>
@@ -339,7 +366,10 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
         let documentResource = null
         try {
             documentResource = unwrap(await runtime.invoke("aseprite/aseprite::open", path), "aseprite open")
-            const slices = unwrap(await runtime.invoke("aseprite/aseprite::slices", documentResource), "aseprite slices")
+            const slices = unwrap(
+                await runtime.invoke("aseprite/aseprite::slices", documentResource),
+                "aseprite slices",
+            )
             const baseName = basenameWithoutExtension(path)
             this.draft.imagePath = path
             this.draft.sourceNinePatches = buildSourceNinePatches({ baseName, slices })
@@ -357,7 +387,21 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
                     slice_left, slice_top, slice_right, slice_bottom
              FROM nine_patch
              WHERE id = ?`,
-            ["id", "name", "display_name", "image_path", "source_x", "source_y", "source_width", "source_height", "source_slice_name", "slice_left", "slice_top", "slice_right", "slice_bottom"],
+            [
+                "id",
+                "name",
+                "display_name",
+                "image_path",
+                "source_x",
+                "source_y",
+                "source_width",
+                "source_height",
+                "source_slice_name",
+                "slice_left",
+                "slice_top",
+                "slice_right",
+                "slice_bottom",
+            ],
             [String(ninePatchId)],
         )
         assert(rows.length === 1, `expected one nine_patch for id ${ninePatchId}, got ${rows.length}`)
@@ -415,8 +459,14 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
                 assertNonNegativeInteger(Number(ninePatch.sliceTop), `nine-patch ${ninePatch.name} slice top`)
                 assertNonNegativeInteger(Number(ninePatch.sliceRight), `nine-patch ${ninePatch.name} slice right`)
                 assertNonNegativeInteger(Number(ninePatch.sliceBottom), `nine-patch ${ninePatch.name} slice bottom`)
-                assert(Number(ninePatch.sliceRight) > Number(ninePatch.sliceLeft), `nine-patch ${ninePatch.name} slice right must be greater than slice left`)
-                assert(Number(ninePatch.sliceBottom) > Number(ninePatch.sliceTop), `nine-patch ${ninePatch.name} slice bottom must be greater than slice top`)
+                assert(
+                    Number(ninePatch.sliceRight) > Number(ninePatch.sliceLeft),
+                    `nine-patch ${ninePatch.name} slice right must be greater than slice left`,
+                )
+                assert(
+                    Number(ninePatch.sliceBottom) > Number(ninePatch.sliceTop),
+                    `nine-patch ${ninePatch.name} slice bottom must be greater than slice top`,
+                )
             }
         }
     }
@@ -477,7 +527,8 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
             await this.saveNinePatchRow(this.draft.sourceNinePatches[0] || this.manualNinePatch(), this.ninePatchId)
             return
         }
-        const ninePatches = this.draft.sourceNinePatches.length > 0 ? this.draft.sourceNinePatches : [this.manualNinePatch()]
+        const ninePatches =
+            this.draft.sourceNinePatches.length > 0 ? this.draft.sourceNinePatches : [this.manualNinePatch()]
         await sql.exec("BEGIN TRANSACTION", [])
         try {
             for (const ninePatch of ninePatches) await this.saveNinePatchRow(ninePatch)
@@ -502,7 +553,10 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
         this.draft.selectedSourceIndex = nextIndex
         this.applySourceNinePatchToDraft(this.selectedSourceNinePatch())
         this.render()
-        this.setStatus(`Editing ${this.draft.sourceSliceName}. Save imports all ${this.draft.sourceNinePatches.length} nine patches.`, "info")
+        this.setStatus(
+            `Editing ${this.draft.sourceSliceName}. Save imports all ${this.draft.sourceNinePatches.length} nine patches.`,
+            "info",
+        )
     }
 
     async handleSubmit(event) {
@@ -531,7 +585,12 @@ export class ViewCatalogNinePatchEdit extends HTMLElement {
         assert(intent === "save", `unknown nine-patch intent ${intent}`)
         try {
             await this.saveNinePatch()
-            await runtime.call("ui.popup.close", { ok: true, cancelled: false, mode: this.mode, ninePatchName: this.draft.name })
+            await runtime.call("ui.popup.close", {
+                ok: true,
+                cancelled: false,
+                mode: this.mode,
+                ninePatchName: this.draft.name,
+            })
         } catch (error) {
             this.setStatus(String(error?.message || error), "danger")
         }

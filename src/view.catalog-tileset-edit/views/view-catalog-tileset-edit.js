@@ -1,7 +1,7 @@
 import { runtime, unwrap } from "/core/runtime.js"
-import { registerViewPlugin, unregisterViewPlugin } from "/util/view-plugin.js"
-import { sql } from "/util/sql.js"
 import { decode as decodeQoi } from "/util/qoi/decode.js"
+import { sql } from "/util/sql.js"
+import { registerViewPlugin, unregisterViewPlugin } from "/util/view-plugin.js"
 
 function assert(condition, message) {
     if (!condition) throw new Error(message)
@@ -16,13 +16,18 @@ function escapeHtml(value) {
 }
 
 function basenameWithoutExtension(path) {
-    const name = String(path || "").split("/").pop() || ""
+    const name =
+        String(path || "")
+            .split("/")
+            .pop() || ""
     const dot = name.lastIndexOf(".")
     return dot > 0 ? name.slice(0, dot) : name
 }
 
 function dirname(path) {
-    const normalized = String(path || "").trim().replace(/\/+/g, "/")
+    const normalized = String(path || "")
+        .trim()
+        .replace(/\/+/g, "/")
     if (!normalized || normalized === "/") return "/"
     const slashIndex = normalized.lastIndexOf("/")
     if (slashIndex <= 0) return "/"
@@ -30,7 +35,10 @@ function dirname(path) {
 }
 
 function getExtension(path) {
-    const name = String(path || "").split("/").pop() || ""
+    const name =
+        String(path || "")
+            .split("/")
+            .pop() || ""
     const parts = name.split(".")
     if (parts.length <= 1) return ""
     return parts.pop().toLowerCase()
@@ -96,7 +104,8 @@ export class ViewCatalogTilesetEdit extends HTMLElement {
         this.mode = String(this.popupProps.mode || "import")
         assert(this.mode === "import" || this.mode === "edit", `unknown tileset edit mode ${this.mode}`)
         this.tilesetId = Number(this.popupProps.tilesetId || 0)
-        if (this.mode === "edit") assert(Number.isInteger(this.tilesetId) && this.tilesetId > 0, "tileset edit requires tilesetId")
+        if (this.mode === "edit")
+            assert(Number.isInteger(this.tilesetId) && this.tilesetId > 0, "tileset edit requires tilesetId")
         this.style.display = "contents"
         this.innerHTML = '<form data-element="form" novalidate></form>'
         this.formElement = this.querySelector('[data-element="form"]')
@@ -115,7 +124,10 @@ export class ViewCatalogTilesetEdit extends HTMLElement {
     }
 
     setStatus(text, tone = null) {
-        assert(this.statusElement instanceof HTMLOutputElement, "view-catalog-tileset-edit status output is not initialized")
+        assert(
+            this.statusElement instanceof HTMLOutputElement,
+            "view-catalog-tileset-edit status output is not initialized",
+        )
         this.statusElement.textContent = text
         this.statusElement.classList.remove("accent", "success", "warning", "danger", "info")
         if (tone) this.statusElement.classList.add(tone)
@@ -134,7 +146,12 @@ export class ViewCatalogTilesetEdit extends HTMLElement {
     render() {
         assert(this.formElement instanceof HTMLFormElement, "view-catalog-tileset-edit form is not initialized")
         const submitLabel = this.mode === "edit" ? "Save tileset" : "Import tileset"
-        const sourceInfo = this.draft.sourceWidth > 0 && this.draft.sourceHeight > 0 ? `${Number(this.draft.sourceWidth)}×${Number(this.draft.sourceHeight)} · dual grid masks 1–15` : this.mode === "edit" ? "Loaded from database." : "Choose a QOI or Aseprite file."
+        const sourceInfo =
+            this.draft.sourceWidth > 0 && this.draft.sourceHeight > 0
+                ? `${Number(this.draft.sourceWidth)}×${Number(this.draft.sourceHeight)} · dual grid masks 1–15`
+                : this.mode === "edit"
+                  ? "Loaded from database."
+                  : "Choose a QOI or Aseprite file."
         this.formElement.innerHTML = `
       <fieldset>
         <legend>Source</legend>
@@ -257,7 +274,10 @@ export class ViewCatalogTilesetEdit extends HTMLElement {
     validateDraft() {
         assert(this.draft.imagePath, "Choose a tileset source file")
         const extension = getExtension(this.draft.imagePath)
-        assert(extension === "qoi" || extension === "aseprite" || extension === "ase", "Tileset source must be QOI or Aseprite")
+        assert(
+            extension === "qoi" || extension === "aseprite" || extension === "ase",
+            "Tileset source must be QOI or Aseprite",
+        )
         assert(this.draft.name, "Tileset name is required")
         assertPositiveInteger(this.draft.tileWidth, "tile width")
         assertPositiveInteger(this.draft.tileHeight, "tile height")
@@ -268,7 +288,10 @@ export class ViewCatalogTilesetEdit extends HTMLElement {
         assertPositiveInteger(dimensions.width, "tileset source width")
         assertPositiveInteger(dimensions.height, "tileset source height")
         assert(dimensions.width % this.draft.tileWidth === 0, "tileset source width must be divisible by tile width")
-        assert(dimensions.height % this.draft.tileHeight === 0, "tileset source height must be divisible by tile height")
+        assert(
+            dimensions.height % this.draft.tileHeight === 0,
+            "tileset source height must be divisible by tile height",
+        )
         const columns = dimensions.width / this.draft.tileWidth
         const rows = dimensions.height / this.draft.tileHeight
         assert(columns * rows >= 15, "dual-grid tileset source must contain at least 15 tiles")
@@ -352,7 +375,13 @@ export class ViewCatalogTilesetEdit extends HTMLElement {
         assert(intent === "save", `unknown tileset intent ${intent}`)
         try {
             await this.saveTileset()
-            await runtime.call("ui.popup.close", { ok: true, cancelled: false, mode: this.mode, tilesetId: this.tilesetId, tilesetName: this.draft.name })
+            await runtime.call("ui.popup.close", {
+                ok: true,
+                cancelled: false,
+                mode: this.mode,
+                tilesetId: this.tilesetId,
+                tilesetName: this.draft.name,
+            })
         } catch (error) {
             this.setStatus(String(error?.message || error), "danger")
         }

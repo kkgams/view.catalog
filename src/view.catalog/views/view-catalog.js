@@ -1,7 +1,7 @@
 import { runtime, unwrap } from "/core/runtime.js"
-import { registerViewPlugin, unregisterViewPlugin } from "/util/view-plugin.js"
-import { sql } from "/util/sql.js"
 import { decode as decodeQoi } from "/util/qoi/decode.js"
+import { sql } from "/util/sql.js"
+import { registerViewPlugin, unregisterViewPlugin } from "/util/view-plugin.js"
 
 const CATALOG_TABLES = Object.freeze({
     tileset: "tileset",
@@ -320,7 +320,9 @@ export class ViewCatalog extends HTMLElement {
     `
         toolbar.querySelector('[data-action="reload"]').addEventListener("click", () => this.refresh())
         toolbar.querySelector('[data-action="new"]').addEventListener("click", () => this.importForActiveTab())
-        toolbar.querySelector('[data-action="preview"]').addEventListener("click", () => this.previewSelectedForActiveTab())
+        toolbar
+            .querySelector('[data-action="preview"]')
+            .addEventListener("click", () => this.previewSelectedForActiveTab())
         toolbar.querySelector('[data-action="edit"]').addEventListener("click", () => this.edit())
         return toolbar
     }
@@ -595,14 +597,27 @@ export class ViewCatalog extends HTMLElement {
 
     async ensureCatalogSchemaMigrations() {
         const spriteAnimationFrame = sqlIdent(CATALOG_TABLES.spriteAnimationFrame)
-        const columns = await sql.queryObjects(`PRAGMA table_info(${spriteAnimationFrame})`, ["cid", "name", "type", "notnull", "dflt_value", "pk"])
+        const columns = await sql.queryObjects(`PRAGMA table_info(${spriteAnimationFrame})`, [
+            "cid",
+            "name",
+            "type",
+            "notnull",
+            "dflt_value",
+            "pk",
+        ])
         const columnNames = new Set(columns.map((column) => String(column.name)))
         const missingColumnStatements = [
             ["source_x", `ALTER TABLE ${spriteAnimationFrame} ADD COLUMN source_x INTEGER NOT NULL DEFAULT 0`],
             ["source_y", `ALTER TABLE ${spriteAnimationFrame} ADD COLUMN source_y INTEGER NOT NULL DEFAULT 0`],
             ["source_width", `ALTER TABLE ${spriteAnimationFrame} ADD COLUMN source_width INTEGER NOT NULL DEFAULT 1`],
-            ["source_height", `ALTER TABLE ${spriteAnimationFrame} ADD COLUMN source_height INTEGER NOT NULL DEFAULT 1`],
-            ["source_slice_name", `ALTER TABLE ${spriteAnimationFrame} ADD COLUMN source_slice_name TEXT NOT NULL DEFAULT ''`],
+            [
+                "source_height",
+                `ALTER TABLE ${spriteAnimationFrame} ADD COLUMN source_height INTEGER NOT NULL DEFAULT 1`,
+            ],
+            [
+                "source_slice_name",
+                `ALTER TABLE ${spriteAnimationFrame} ADD COLUMN source_slice_name TEXT NOT NULL DEFAULT ''`,
+            ],
         ]
         let addedFrameSourceColumn = false
         for (const [columnName, statement] of missingColumnStatements) {
@@ -722,7 +737,20 @@ export class ViewCatalog extends HTMLElement {
         GROUP BY s.id
         ORDER BY s.name
       `,
-            ["id", "name", "display_name", "image_path", "grid_width", "grid_height", "animation_count", "source_x", "source_y", "source_width", "source_height", "source_slice_name"],
+            [
+                "id",
+                "name",
+                "display_name",
+                "image_path",
+                "grid_width",
+                "grid_height",
+                "animation_count",
+                "source_x",
+                "source_y",
+                "source_width",
+                "source_height",
+                "source_slice_name",
+            ],
         )
     }
 
@@ -747,7 +775,21 @@ export class ViewCatalog extends HTMLElement {
         FROM ${ninePatchTable}
         ORDER BY name
       `,
-            ["id", "name", "display_name", "image_path", "source_x", "source_y", "source_width", "source_height", "source_slice_name", "slice_left", "slice_top", "slice_right", "slice_bottom"],
+            [
+                "id",
+                "name",
+                "display_name",
+                "image_path",
+                "source_x",
+                "source_y",
+                "source_width",
+                "source_height",
+                "source_slice_name",
+                "slice_left",
+                "slice_top",
+                "slice_right",
+                "slice_bottom",
+            ],
         )
     }
 
@@ -837,7 +879,10 @@ export class ViewCatalog extends HTMLElement {
     }
 
     renderNinePatches() {
-        assert(this.ninePatchTableElement instanceof HTMLTableElement, "view-catalog nine-patch table is not initialized")
+        assert(
+            this.ninePatchTableElement instanceof HTMLTableElement,
+            "view-catalog nine-patch table is not initialized",
+        )
         const body = this.ninePatchTableElement.querySelector("tbody")
         assert(body instanceof HTMLTableSectionElement, "view-catalog missing nine-patch table body")
         body.replaceChildren()
@@ -913,7 +958,10 @@ export class ViewCatalog extends HTMLElement {
         const path = row.preview_image_path
         assert(typeof path === "string" && path.length > 0, "catalog preview requires image path")
         const extension = getExtension(path)
-        assert(extension === "qoi" || extension === "aseprite" || extension === "ase", `catalog preview supports qoi or aseprite files only: ${path}`)
+        assert(
+            extension === "qoi" || extension === "aseprite" || extension === "ase",
+            `catalog preview supports qoi or aseprite files only: ${path}`,
+        )
 
         let source = imageCache.get(path)
         if (!source) {
@@ -937,7 +985,10 @@ export class ViewCatalog extends HTMLElement {
 
         const columns = source.width / tileWidth
         const rows = source.height / tileHeight
-        assert(tileIndex <= columns * rows, `${path} tile index ${tileIndex} exceeds source tile count ${columns * rows}`)
+        assert(
+            tileIndex <= columns * rows,
+            `${path} tile index ${tileIndex} exceeds source tile count ${columns * rows}`,
+        )
 
         const zeroBasedIndex = tileIndex - 1
         const tileX = zeroBasedIndex % columns
@@ -950,7 +1001,17 @@ export class ViewCatalog extends HTMLElement {
         assert(ctx, "view-catalog preview requires 2d context")
         ctx.imageSmoothingEnabled = false
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.drawImage(source, tileX * tileWidth, tileY * tileHeight, tileWidth, tileHeight, 0, 0, canvas.width, canvas.height)
+        ctx.drawImage(
+            source,
+            tileX * tileWidth,
+            tileY * tileHeight,
+            tileWidth,
+            tileHeight,
+            0,
+            0,
+            canvas.width,
+            canvas.height,
+        )
     }
 
     async renderSpritePreviews() {
@@ -965,7 +1026,10 @@ export class ViewCatalog extends HTMLElement {
     async renderSpritePreview(canvas, row, spriteCache) {
         const path = row.image_path
         assert(typeof path === "string" && path.length > 0, "sprite preview requires image path")
-        assert(getExtension(path) === "aseprite" || getExtension(path) === "ase", `sprite preview currently supports aseprite files only: ${path}`)
+        assert(
+            getExtension(path) === "aseprite" || getExtension(path) === "ase",
+            `sprite preview currently supports aseprite files only: ${path}`,
+        )
 
         let sprite = spriteCache.get(path)
         if (!sprite) {
@@ -999,7 +1063,10 @@ export class ViewCatalog extends HTMLElement {
         let documentResource = null
         try {
             documentResource = unwrap(await runtime.invoke("aseprite/aseprite::open", path), "aseprite open")
-            const pixels = unwrap(await runtime.invoke("aseprite/aseprite::render-frame", documentResource, 0), "aseprite render frame")
+            const pixels = unwrap(
+                await runtime.invoke("aseprite/aseprite::render-frame", documentResource, 0),
+                "aseprite render frame",
+            )
             return {
                 preview: createCanvasFromPixels(pixels, "view-catalog sprite preview"),
             }
@@ -1069,7 +1136,10 @@ export class ViewCatalog extends HTMLElement {
         let documentResource = null
         try {
             documentResource = unwrap(await runtime.invoke("aseprite/aseprite::open", path), "aseprite open")
-            const pixels = unwrap(await runtime.invoke("aseprite/aseprite::render-frame", documentResource, 0), "aseprite render frame")
+            const pixels = unwrap(
+                await runtime.invoke("aseprite/aseprite::render-frame", documentResource, 0),
+                "aseprite render frame",
+            )
             return createCanvasFromPixels(pixels, "view-catalog nine-patch preview")
         } finally {
             if (documentResource) await runtime.releaseResource(documentResource)
