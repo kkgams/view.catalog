@@ -288,7 +288,7 @@ export class ViewCatalogSpriteImport extends HTMLElement {
             this.captureDraftFieldsIntoSourceSprite(this.draft.selectedSourceIndex, formData)
         }
 
-        this.draft.animations = this.draft.animations.map((animation, index) => ({
+        this.draft.animations = this.draft.animations.map((_animation, index) => ({
             name: String(formData.get(`animation-name-${index}`) || "").trim(),
             startFrame: Number(formData.get(`animation-start-${index}`)),
             endFrame: Number(formData.get(`animation-end-${index}`)),
